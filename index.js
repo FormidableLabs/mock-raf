@@ -24,7 +24,7 @@ module.exports = function () {
 
     var oldAllCallbacks;
 
-    for (var i = 0; i < count; i++) {
+    for (var i = 0; i < options.count; i++) {
       oldAllCallbacks = allCallbacks;
       allCallbacks = [];
 
