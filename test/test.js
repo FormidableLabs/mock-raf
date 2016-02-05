@@ -68,4 +68,16 @@ describe('mock-raf', function () {
     });
     assert(callback.calledOnce);
   });
+
+  it('should only remove callbacks which have been called', function () {
+    var callback2 = sinon.stub();
+    var callback1 = function() {
+      mockRaf.raf(callback2);
+    };
+    mockRaf.raf(callback1);
+    mockRaf.step();
+    assert(callback2.notCalled);
+    mockRaf.step();
+    assert(callback2.called);
+  });
 });

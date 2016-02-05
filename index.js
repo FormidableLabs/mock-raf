@@ -29,16 +29,16 @@ module.exports = function () {
     }, opts);
 
     if (options.count > 0) {
-      callAllCallbacks();
-      allCallbacks = {};
+      callAndRemoveAllCallbacks();
       prevTime += options.time * options.count;
     }
   };
 
-  var callAllCallbacks = function () {
+  var callAndRemoveAllCallbacks = function () {
     for (var id in allCallbacks) {
       if (allCallbacks.hasOwnProperty(id)) {
         allCallbacks[id]();
+        delete allCallbacks[id];
       }
     }
   };
