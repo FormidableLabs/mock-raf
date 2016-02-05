@@ -1,6 +1,6 @@
 {
   "name": "mockraf",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple mock for requestAnimationFrame testing with fake timers and request IDs.",
   "main": "index.js",
   "license": "MIT",
