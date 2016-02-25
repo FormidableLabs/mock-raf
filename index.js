@@ -1,19 +1,25 @@
 var assign = require('object-assign');
 
 module.exports = function () {
-  var allCallbacks = [];
+  var allCallbacks = {};
   var prevTime = 0;
+  var nextCallbackID = 0;
 
   var now = function () {
     return prevTime;
   };
 
   var raf = function (callback) {
-    allCallbacks.push(callback);
+    allCallbacks[nextCallbackID] = callback;
+    return nextCallbackID++;
   };
 
-  var cancel = function () {
-    allCallbacks = [];
+  var cancel = function (callbackID) {
+    if (typeof callbackID === 'number') {
+      delete allCallbacks[callbackID];
+    } else {
+      allCallbacks = {};
+    }
   };
 
   var step = function (opts) {
@@ -22,19 +28,20 @@ module.exports = function () {
       count: 1
     }, opts);
 
-    var oldAllCallbacks;
-
-    for (var i = 0; i < options.count; i++) {
-      oldAllCallbacks = allCallbacks;
-      allCallbacks = [];
-
-      oldAllCallbacks.forEach(function (callback) {
-        callback();
-      });
-
-      prevTime += options.time;
+    if (options.count > 0) {
+      callAndRemoveAllCallbacks();
+      prevTime += options.time * options.count;
     }
-  }
+  };
+
+  var callAndRemoveAllCallbacks = function () {
+    for (var id in allCallbacks) {
+      if (allCallbacks.hasOwnProperty(id)) {
+        allCallbacks[id]();
+        delete allCallbacks[id];
+      }
+    }
+  };
 
   return {
     now: now,

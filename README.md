@@ -1,8 +1,9 @@
 # mock-raf
 
-A simple mock for `requestAnimationFrame` testing with fake timers.
-
-Adapted with gratitude from [`react-motion`](https://github.com/chenglou/react-motion/blob/dafff3f2b00ac11f39d91f3363cc97de664b2406/test/createMockRaf.js). Original source [here](https://github.com/chenglou/react-motion/blob/dafff3f2b00ac11f39d91f3363cc97de664b2406/test/createMockRaf.js). 
+A simple mock for `requestAnimationFrame` testing with fake timers. This is a fork of the
+ mock-raf package provided by [Alex Lande](https://github.com/alexlande) which can be found
+ [`here`](https://github.com/FormidableLabs/mock-raf). This fork implements request IDs, which
+ can be used e.g. to test if the right animation frames are cancelled.
 
 ## Basic Usage
 
@@ -40,11 +41,16 @@ Returns the current `now` value of the mock. Starts at 0 and increases with each
 
 ### `raf()`
 
-Replacement for `requestAnimationFrame` or a polyfill. Adds a callback to be fired on the next step.
+Replacement for `requestAnimationFrame` or a polyfill. Adds a callback to be fired on the next step
+and returns an `id` which may be used with `cancel()`.
 
-### `cancel()`
+### `cancel([id])`
 
-Replacement for `cancelAnimationFrame` or a polyfill. Removes all currently scheduled `requestAnimationFrame` callbacks from the queue.
+Replacement for `cancelAnimationFrame` or a polyfill. If provided with an `id`, it removes the
+`requestAnimationFrame` callback associated with this `id` if it exists.
+
+If no argument is provided,
+all queued `requestAnimationFrame` callbacks are removed.
 
 ### `step(options)`
 

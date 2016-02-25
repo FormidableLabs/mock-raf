@@ -1,7 +1,7 @@
 {
-  "name": "mock-raf",
-  "version": "0.0.2",
-  "description": "A simple mock for requestAnimationFrame testing with fake timers.",
+  "name": "mockraf",
+  "version": "0.1.1",
+  "description": "A simple mock for requestAnimationFrame testing with fake timers and request IDs.",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
@@ -9,6 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FormidableLabs/mock-raf.git"
+    "url": "https://github.com/lukastaegert/mock-raf.git"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "sinon": "^1.17.2"
   }
 }
