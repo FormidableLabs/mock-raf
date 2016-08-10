@@ -29,7 +29,7 @@ module.exports = function () {
       allCallbacks = [];
 
       oldAllCallbacks.forEach(function (callback) {
-        callback();
+        callback(prevTime + options.time);
       });
 
       prevTime += options.time;
