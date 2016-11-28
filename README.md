@@ -2,7 +2,7 @@
 
 A simple mock for `requestAnimationFrame` testing with fake timers.
 
-Adapted with gratitude from [`react-motion`](https://github.com/chenglou/react-motion/blob/dafff3f2b00ac11f39d91f3363cc97de664b2406/test/createMockRaf.js). Original source [here](https://github.com/chenglou/react-motion/blob/dafff3f2b00ac11f39d91f3363cc97de664b2406/test/createMockRaf.js). 
+Adapted with gratitude from [`react-motion`](https://github.com/chenglou/react-motion/blob/dafff3f2b00ac11f39d91f3363cc97de664b2406/test/createMockRaf.js). Original source [here](https://github.com/chenglou/react-motion/blob/dafff3f2b00ac11f39d91f3363cc97de664b2406/test/createMockRaf.js).
 
 ## Basic Usage
 
@@ -14,7 +14,7 @@ var mockRaf = createMockRaf();
 sinon.stub(window, 'requestAnimationFrame', mockRaf.raf);
 
 // Take 10 `requestAnimationFrame` steps (your callback will fire 10 times)
-mockRaf.step(10);
+mockRaf.step({ count: 10 });
 ```
 
 ## API
