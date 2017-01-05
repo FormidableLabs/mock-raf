@@ -1,7 +1,9 @@
 var assign = require('object-assign');
 
 module.exports = function () {
-  var allCallbacks = [];
+  var allCallbacks = {};
+  var callbacksLength = 0;
+
   var prevTime = 0;
 
   var now = function () {
@@ -9,11 +11,15 @@ module.exports = function () {
   };
 
   var raf = function (callback) {
-    allCallbacks.push(callback);
+    callbacksLength += 1;
+
+    allCallbacks[callbacksLength] = callback;
+
+    return callbacksLength;
   };
 
-  var cancel = function () {
-    allCallbacks = [];
+  var cancel = function (id) {
+    delete allCallbacks[id];
   };
 
   var step = function (opts) {
@@ -26,9 +32,10 @@ module.exports = function () {
 
     for (var i = 0; i < options.count; i++) {
       oldAllCallbacks = allCallbacks;
-      allCallbacks = [];
+      allCallbacks = {};
 
-      oldAllCallbacks.forEach(function (callback) {
+      Object.keys(oldAllCallbacks).forEach(function (id) {
+        var callback = oldAllCallbacks[id];
         callback(prevTime + options.time);
       });
 
