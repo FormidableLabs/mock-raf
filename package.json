@@ -1,7 +1,8 @@
 {
   "name": "mock-raf",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple mock for requestAnimationFrame testing with fake timers.",
+  "typings": "./index.d.ts",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
