@@ -33,13 +33,13 @@ module.exports = function () {
     for (var i = 0; i < options.count; i++) {
       oldAllCallbacks = allCallbacks;
       allCallbacks = {};
+      
+      prevTime += options.time;
 
       Object.keys(oldAllCallbacks).forEach(function (id) {
         var callback = oldAllCallbacks[id];
         callback(prevTime + options.time);
       });
-
-      prevTime += options.time;
     }
   }
 
