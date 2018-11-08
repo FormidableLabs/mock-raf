@@ -4,10 +4,10 @@ module.exports = function () {
   var allCallbacks = {};
   var callbacksLength = 0;
 
-  var prevTime = 0;
+  var now = 0;
 
-  var now = function () {
-    return prevTime;
+  var getNow = function () {
+    return now;
   };
 
   var raf = function (callback) {
@@ -33,18 +33,18 @@ module.exports = function () {
     for (var i = 0; i < options.count; i++) {
       oldAllCallbacks = allCallbacks;
       allCallbacks = {};
+      
+      now += options.time;
 
       Object.keys(oldAllCallbacks).forEach(function (id) {
         var callback = oldAllCallbacks[id];
-        callback(prevTime + options.time);
+        callback(now);
       });
-
-      prevTime += options.time;
     }
   }
 
   return {
-    now: now,
+    now: getNow,
     raf: raf,
     cancel: cancel,
     step: step
