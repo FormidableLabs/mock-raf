@@ -1,6 +1,7 @@
 var assign = require('object-assign');
 
 module.exports = function () {
+  var FPS = 1000 / 60;
   var allCallbacks = {};
   var callbacksLength = 0;
 
@@ -24,22 +25,24 @@ module.exports = function () {
 
   var step = function (opts) {
     var options = assign({}, {
-      time: 1000 / 60,
+      time: FPS,
       count: 1
     }, opts);
 
     var oldAllCallbacks;
 
-    for (var i = 0; i < options.count; i++) {
+    if (options.count > 0) {
       oldAllCallbacks = allCallbacks;
       allCallbacks = {};
-      
+    }
+
+    for (var i = 0; i < options.count; i++) {
       now += options.time;
 
-      Object.keys(oldAllCallbacks).forEach(function (id) {
+      for (var id in oldAllCallbacks) {
         var callback = oldAllCallbacks[id];
         callback(now);
-      });
+      }
     }
   }
 
